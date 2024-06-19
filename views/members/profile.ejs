@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+    <style>
+      .section {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../layouts/header') %>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Profile</h1>
+        <div class="content">
+          <p><strong>Name:</strong> <%= member.name %></p>
+          <p><strong>Username:</strong> <%= member.memberName %></p>
+          <div class="buttons mt-4">
+            <a
+              href="/members/<%= member._id %>/edit-profile"
+              class="button is-primary"
+              >Edit Profile</a
+            >
+            <a
+              href="/members/<%= member._id %>/change-password"
+              class="button is-info"
+              >Change Password</a
+            >
+            <a href="/members/logout" class="button is-danger">Logout</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <%- include('../layouts/footer') %>
+  </body>
+</html>

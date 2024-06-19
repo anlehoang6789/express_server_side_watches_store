@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brands</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+    <style>
+      .section {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../layouts/header') %>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Brands</h1>
+        <a href="/brands/new" class="button is-primary mb-4">Add New Brand</a>
+        <ul>
+          <% brands.forEach(brand => { %>
+          <li class="mb-3">
+            <div class="is-flex">
+              <span class="is-size-4"><%= brand.brandName %></span>
+              <div class="ml-auto">
+                <a
+                  href="/brands/<%= brand._id %>"
+                  class="button is-info is-small"
+                  >Edit</a
+                >
+                <form
+                  action="/brands/<%= brand._id %>?_method=DELETE"
+                  method="POST"
+                  style="display: inline"
+                >
+                  <button type="submit" class="button is-danger is-small">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+    </section>
+    <%- include('../layouts/footer') %>
+  </body>
+</html>

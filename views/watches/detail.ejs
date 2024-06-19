@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= watch.watchName %></title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+    <style>
+      /* Custom CSS */
+      .container {
+        max-width: 800px; /* Limit width of content */
+        margin-top: 50px; /* Adjust margin top */
+      }
+      .card {
+        margin-bottom: 20px; /* Add space between cards */
+      }
+      .comment-form {
+        margin-top: 20px; /* Adjust margin top of the form */
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../layouts/header') %>
+    <div class="container">
+      <h1 class="title"><%= watch.watchName %></h1>
+      <div class="columns">
+        <div class="column is-half">
+          <figure class="image is-4by3">
+            <img
+              src="<%= watch.image %>"
+              alt="<%= watch.watchName %>"
+              class="mb-3"
+            />
+          </figure>
+        </div>
+        <div class="column is-half">
+          <p class="subtitle is-5">Price: $<%= watch.price %></p>
+          <p class="subtitle is-5">Brand: <%= watch.brand.brandName %></p>
+          <p><%= watch.watchDescription %></p>
+          <p>Automatic: <%= watch.Automatic ? 'Yes' : 'No' %></p>
+        </div>
+      </div>
+
+      <h2 class="title is-4 mt-5 mb-3">Comments</h2>
+      <ul class="mb-5">
+        <% watch.comments.forEach(comment => { %>
+        <li class="box">
+          <div class="content">
+            <p><%= comment.content %></p>
+            <p>Rating: <%= comment.rating %></p>
+            <p>Author: <%= comment.author.memberName %></p>
+            <p>Date: <%= new Date(comment.createdAt).toLocaleDateString() %></p>
+          </div>
+        </li>
+        <% }) %>
+      </ul>
+
+      <% if (user) { %> <% if (userComment) { %>
+      <div class="notification is-info">
+        You have already commented on this product.
+      </div>
+      <% } else { %>
+      <form
+        action="/watches/<%= watch._id %>/comment"
+        method="POST"
+        class="comment-form"
+      >
+        <div class="field">
+          <label for="content" class="label">Comment:</label>
+          <div class="control">
+            <textarea
+              name="content"
+              id="content"
+              class="textarea"
+              required
+            ></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label for="rating" class="label">Rating:</label>
+          <div class="control">
+            <div class="select">
+              <select name="rating" id="rating" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button type="submit" class="button is-primary">Add Comment</button>
+          </div>
+        </div>
+      </form>
+      <% } %> <% } else { %>
+      <p class="mt-3">
+        Please <a href="/members/login">login</a> to add a comment.
+      </p>
+      <% } %> <% if (message === 'already_commented') { %>
+      <div class="notification is-info">
+        You have already commented on this product.
+      </div>
+      <% } %>
+    </div>
+
+    <%- include('../layouts/footer') %>
+  </body>
+</html>

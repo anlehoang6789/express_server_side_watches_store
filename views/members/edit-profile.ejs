@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Profile</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+    <style>
+      .section {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../layouts/header') %>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Edit Information</h1>
+        <form action="/members/<%= member._id %>/edit-profile" method="POST">
+          <div class="field">
+            <label for="currentName" class="label">Current Name:</label>
+            <div class="control">
+              <input
+                type="text"
+                id="currentName"
+                name="currentName"
+                value="<%= member.name %>"
+                class="input"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="newName" class="label">New Name:</label>
+            <div class="control">
+              <input
+                type="text"
+                id="newName"
+                name="newName"
+                class="input"
+                required
+              />
+            </div>
+          </div>
+          <div class="field is-grouped">
+            <div class="control">
+              <button type="submit" class="button is-primary">
+                Update Information
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <%- include('../layouts/footer') %>
+  </body>
+</html>

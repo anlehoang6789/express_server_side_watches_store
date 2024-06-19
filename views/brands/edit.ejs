@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Brand</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+    <style>
+      .section {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../layouts/header') %>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Edit Brand</h1>
+        <form action="/brands/<%= brand._id %>?_method=PUT" method="POST">
+          <div class="field">
+            <label for="brandName" class="label">Brand Name:</label>
+            <div class="control">
+              <input
+                type="text"
+                name="brandName"
+                id="brandName"
+                class="input"
+                value="<%= brand.brandName %>"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button is-primary">
+                Update Brand
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <%- include('../layouts/footer') %>
+  </body>
+</html>

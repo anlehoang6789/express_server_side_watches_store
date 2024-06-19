@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+    <style>
+      /* Custom CSS for image inside card */
+      .card-img-top {
+        height: 250px; /* Fixed height for the image */
+        object-fit: cover; /* Ensure the image covers the entire area */
+      }
+      .card-body {
+        position: relative; /* Set the position of the card body to relative */
+      }
+      .btn-details {
+        margin-right: 0.5rem; /* Margin between buttons */
+      }
+      body {
+        min-height: 100vh;
+      }
+      .search-form {
+        margin-bottom: 1rem; /* Adjust margin bottom as needed */
+      }
+      .search-form .field {
+        display: flex;
+        align-items: flex-end; /* Align items at the bottom */
+      }
+      .search-form .field .control {
+        margin-right: 0.5rem; /* Adjust margin right for controls */
+      }
+      .search-form .field .button {
+        margin-left: auto;
+      }
+      .add-watch-button {
+        margin-bottom: 1rem; /* Margin bottom for the button */
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../layouts/header') %>
+    <div class="container mt-5 mb-6">
+      <h1 class="title mb-4">Watches</h1>
+
+      <!-- Add Watch Button for Admin -->
+      <% if (user && user.isAdmin) { %>
+      <div class="add-watch-button">
+        <a href="/watches/new" class="button is-success">Add Watch</a>
+      </div>
+      <% } %>
+
+      <!-- Search Form -->
+      <form action="/watches/search" method="GET" class="mb-4 search-form">
+        <div class="field is-grouped">
+          <div class="control is-expanded">
+            <label for="name" class="label">Search by Name:</label>
+            <input type="text" id="name" name="name" class="input" required />
+          </div>
+          <div class="control">
+            <label for="brand" class="label">Filter by Brand:</label>
+            <div class="select">
+              <select id="brand" name="brand">
+                <option value="">All Brands</option>
+                <% brands.forEach(brand => { %>
+                <option value="<%= brand._id %>"><%= brand.brandName %></option>
+                <% }) %>
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <button type="submit" class="button is-primary">Search</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Watches Cards -->
+      <div class="columns is-multiline">
+        <% watches.forEach(watch => { %>
+        <div class="column is-one-quarter">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img
+                  src="<%= watch.image %>"
+                  alt="<%= watch.watchName %>"
+                  class="card-img-top"
+                />
+              </figure>
+            </div>
+            <div class="card-content">
+              <p class="title is-5"><%= watch.watchName %></p>
+              <% if (watch.brand) { %>
+              <p class="subtitle is-6">Brand: <%= watch.brand.brandName %></p>
+              <% } else { %>
+              <p class="subtitle is-6">Brand: N/A</p>
+              <% } %>
+              <div class="level is-mobile">
+                <div class="level-left">
+                  <a
+                    href="/watches/<%= watch._id %>"
+                    class="button is-primary btn-details"
+                    >Details</a
+                  >
+                </div>
+                <% if (user && user.isAdmin) { %>
+                <div class="level-right">
+                  <a
+                    href="/watches/<%= watch._id %>/edit"
+                    class="button is-warning"
+                    >Edit</a
+                  >
+                  <form
+                    action="/watches/<%= watch._id %>?_method=DELETE"
+                    method="POST"
+                    class="d-inline"
+                  >
+                    <button type="submit" class="button is-danger">
+                      Delete
+                    </button>
+                  </form>
+                </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <%- include('../layouts/footer') %>
+  </body>
+</html>

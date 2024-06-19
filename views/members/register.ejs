@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+    <style>
+      /* Custom CSS if needed */
+      .container {
+        max-width: 400px; /* Limit width of content */
+        margin-top: 50px; /* Adjust margin top */
+      }
+      .form-container {
+        margin-top: 20px; /* Adjust margin top of the form */
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../layouts/header') %>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Register</h1>
+        <form action="/members/register" method="POST">
+          <div class="field">
+            <label for="memberName" class="label">Username:</label>
+            <div class="control">
+              <input
+                type="text"
+                name="memberName"
+                id="memberName"
+                class="input"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="name" class="label">Name:</label>
+            <div class="control">
+              <input type="text" name="name" id="name" class="input" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="password" class="label">Password:</label>
+            <div class="control">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="input"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button is-primary">Register</button>
+            </div>
+          </div>
+        </form>
+        <p>Already have an account? <a href="/members/login">Login</a></p>
+      </div>
+    </section>
+    <%- include('../layouts/footer') %>
+  </body>
+</html>

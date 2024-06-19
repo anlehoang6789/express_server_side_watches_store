@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+    <style>
+      .navbar-item {
+        text-decoration: none; /* Vô hiệu hóa gạch chân */
+        color: inherit; /* Đảm bảo màu sắc của văn bản được sử dụng */
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/"> Home </a>
+          <a
+            role="button"
+            class="navbar-burger burger"
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-end">
+            <% if (locals.user) { %> <% if (locals.isAdmin) { %>
+            <a class="navbar-item" href="/members/accounts"> Dashboard </a>
+            <a class="navbar-item" href="/brands"> Brands </a>
+            <% } else { %>
+            <a class="navbar-item" href="/members/profile"> Profile </a>
+            <% } %>
+            <a class="navbar-item" href="/members/logout"> Logout </a>
+            <% } else { %>
+            <a class="navbar-item" href="/members/register"> Register </a>
+            <a class="navbar-item" href="/members/login"> Login </a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Watch</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+  </head>
+  <body>
+    <%- include('../layouts/header') %>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Add New Watch</h1>
+        <form action="/" method="POST">
+          <div class="field">
+            <label for="watchName" class="label">Watch Name:</label>
+            <div class="control">
+              <input
+                type="text"
+                id="watchName"
+                name="watchName"
+                class="input"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="image" class="label">Image URL:</label>
+            <div class="control">
+              <input
+                type="text"
+                id="image"
+                name="image"
+                class="input"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="price" class="label">Price:</label>
+            <div class="control">
+              <input
+                type="number"
+                id="price"
+                name="price"
+                class="input"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="brand" class="label">Brand:</label>
+            <div class="control">
+              <div class="select">
+                <select id="brand" name="brand" required>
+                  <% brands.forEach(brand => { %>
+                  <option value="<%= brand._id %>">
+                    <%= brand.brandName %>
+                  </option>
+                  <% }) %>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="watchDescription" class="label">Description:</label>
+            <div class="control">
+              <textarea
+                id="watchDescription"
+                name="watchDescription"
+                class="textarea"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <label for="automatic" class="checkbox">
+                <input type="checkbox" id="automatic" name="automatic" />
+                Automatic
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="control">
+              <button type="submit" class="button is-primary">Add Watch</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+    <%- include('../layouts/footer') %>
+  </body>
+</html>

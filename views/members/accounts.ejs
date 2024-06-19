@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User List</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+  </head>
+  <body>
+    <%- include('../layouts/header') %>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">All Members</h1>
+        <ul class="mb-4">
+          <% members.forEach(member => { %>
+          <li class="box">
+            <div class="content">
+              <p><strong>Username:</strong> <%= member.memberName %></p>
+              <p><strong>Full Name:</strong> <%= member.name %></p>
+              <p>
+                <strong>Role:</strong> <%= member.isAdmin ? "Admin" : "Customer"
+                %>
+              </p>
+              <% if (!member.isAdmin) { %>
+              <form
+                action="/members/<%= member._id %>?_method=DELETE"
+                method="POST"
+                class="is-inline"
+              >
+                <button type="submit" class="button is-danger is-small">
+                  Delete
+                </button>
+              </form>
+              <% } %>
+            </div>
+          </li>
+          <% }) %>
+        </ul>
+      </div>
+    </section>
+    <%- include('../layouts/footer') %>
+  </body>
+</html>
