@@ -65,6 +65,16 @@ class WatchController {
     const { id } = req.params;
     const { rating, content } = req.body;
     try {
+      // Check if the user is an admin
+      if (req.user.isAdmin) {
+        return res
+          .status(403)
+          .render("error", {
+            message: "Admins are not allowed to comment",
+            error: {},
+          });
+      }
+
       // Kiểm tra xem người dùng đã bình luận chưa
       const existingComment = await Comment.findOne({
         watch: id,
@@ -167,6 +177,12 @@ class WatchController {
   async createWatch(req, res) {
     const { watchName, image, price, brand, watchDescription, automatic } =
       req.body;
+    if (price <= 0) {
+      return res.status(400).render("error", {
+        message: "Price must be greater than 0",
+        error: {},
+      });
+    }
     try {
       const newWatch = new Watch({
         watchName,
@@ -189,6 +205,12 @@ class WatchController {
     const { id } = req.params;
     const { watchName, image, price, watchDescription, automatic, brand } =
       req.body;
+    if (price <= 0) {
+      return res.status(400).render("error", {
+        message: "Price must be greater than 0",
+        error: {},
+      });
+    }
     try {
       const updatedWatch = await Watch.findByIdAndUpdate(
         id,

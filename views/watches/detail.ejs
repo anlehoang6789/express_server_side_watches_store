@@ -58,7 +58,7 @@
         <% }) %>
       </ul>
 
-      <% if (user) { %> <% if (userComment) { %>
+      <% if (user && !user.isAdmin) { %> <% if (userComment) { %>
       <div class="notification is-info">
         You have already commented on this product.
       </div>
@@ -97,10 +97,12 @@
           </div>
         </div>
       </form>
-      <% } %> <% } else { %>
+      <% } %> <% } else if (!user) { %>
       <p class="mt-3">
         Please <a href="/members/login">login</a> to add a comment.
       </p>
+      <% } else if (user.isAdmin) { %>
+      <p class="mt-3">Admins are not allowed to add comments.</p>
       <% } %> <% if (message === 'already_commented') { %>
       <div class="notification is-info">
         You have already commented on this product.
